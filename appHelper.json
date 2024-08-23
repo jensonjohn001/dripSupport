@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "isNeedUpdateAvailableAlret": true,
+    "isNeedForceUpdate": false,
+    "minVersion": "4.16"
+  }
+}
