@@ -5,6 +5,6 @@
   "data": {
     "isNeedUpdateAvailableAlret": true,
     "isNeedForceUpdate": false,
-    "minVersion": "4.16"
+    "minVersion": "4.15"
   }
 }
