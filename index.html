@@ -24,57 +24,71 @@
 
   <p id="status"></p>
 
-  <script>
-    // Fetch settings.json and load checkbox values on page load
-    window.onload = function() {
-      fetch('settings.json')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('isNeedUpdateAvailableAlret').checked = data.data.isNeedUpdateAvailableAlret;
-          document.getElementById('isForceNeeded').checked = data.data.isForceNeeded;
-        })
-        .catch(error => {
-          console.error('Error loading settings:', error);
-          document.getElementById('status').textContent = 'Error loading settings.';
-        });
+<script>
+  const form = document.getElementById('adminForm');
+  const status = document.getElementById('status');
+
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    // Get checkbox values
+    const isNeedUpdateAvailableAlret = document.getElementById('isNeedUpdateAvailableAlret').checked;
+    const isForceNeeded = document.getElementById('isForceNeeded').checked;
+
+    // Create the updated JSON data
+    const data = {
+      success: true,
+      code: 200,
+      message: "Success",
+      data: {
+        isNeedUpdateAvailableAlret: isNeedUpdateAvailableAlret,
+        isForceNeeded: isForceNeeded
+      }
     };
 
-    // Handle form submission to update settings.json
-    const form = document.getElementById('adminForm');
-    const status = document.getElementById('status');
+    // GitHub API credentials
+    const token = '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'; // Replace with your GitHub personal access token
+    const username = 'jensonjohn001'; // Replace with your GitHub username
+    const repo = 'dripSupport'; // Replace with your repository name
+    const path = 'docs/settings.json'; // Path to the settings.json file
+    const branch = 'main'; // Branch to commit the changes
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const isNeedUpdateAvailableAlret = document.getElementById('isNeedUpdateAvailableAlret').checked;
-      const isForceNeeded = document.getElementById('isForceNeeded').checked;
-
-      const data = {
-        success: true,
-        code: 200,
-        message: "Success",
-        data: {
-          isNeedUpdateAvailableAlret,
-          isForceNeeded
+    try {
+      // Get the current file's SHA
+      const getFileResponse = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}?ref=${branch}`, {
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json'
         }
-      };
+      });
+      const fileData = await getFileResponse.json();
 
-      fetch('settings.json', {
+      // Update the file content
+      const updateResponse = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json'
         },
-        body: JSON.stringify(data)
-      }).then(response => {
-        if (response.ok) {
-          status.textContent = "Settings updated successfully!";
-        } else {
-          status.textContent = "Failed to update settings.";
-        }
-      }).catch(error => {
-        status.textContent = "Error: " + error;
+        body: JSON.stringify({
+          message: 'Update settings.json',
+          content: btoa(JSON.stringify(data, null, 2)), // Encode the JSON data as base64
+          sha: fileData.sha, // Required to update the file
+          branch: branch
+        })
       });
-    });
-  </script>
+
+      if (updateResponse.ok) {
+        status.textContent = "Settings updated successfully!";
+      } else {
+        throw new Error('Failed to update settings');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      status.textContent = "Failed to update settings.";
+    }
+  });
+</script>
+  
 </body>
 </html>
