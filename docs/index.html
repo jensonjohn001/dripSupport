@@ -15,8 +15,8 @@
     </label>
     <br>
     <label>
-      Enable:
-      <input type="checkbox" id="Enable">
+      Is force needed:
+      <input type="checkbox" id="isForceNeeded">
     </label>
     <br><br>
     <button type="submit">Update</button>
@@ -31,7 +31,7 @@
         .then(response => response.json())
         .then(data => {
           document.getElementById('isNeedUpdateAvailableAlret').checked = data.data.isNeedUpdateAvailableAlret;
-          document.getElementById('Enable').checked = data.data.Enable;
+          document.getElementById('isForceNeeded').checked = data.data.Enable;
         })
         .catch(error => {
           console.error('Error loading settings:', error);
@@ -47,7 +47,7 @@
       event.preventDefault();
 
       const isNeedUpdateAvailableAlret = document.getElementById('isNeedUpdateAvailableAlret').checked;
-      const Enable = document.getElementById('Enable').checked;
+      const isForceNeeded = document.getElementById('isForceNeeded').checked;
 
       const data = {
         success: true,
@@ -55,7 +55,7 @@
         message: "Success",
         data: {
           isNeedUpdateAvailableAlret,
-          Enable
+          isForceNeeded
         }
       };
 
