@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Module</title>
+</head>
+<body>
+  <h1>Admin Module</h1>
+  
+  <form id="adminForm">
+    <label>
+      Is update needed:
+      <input type="checkbox" id="isNeedUpdateAvailableAlret">
+    </label>
+    <br>
+    <label>
+      Enable:
+      <input type="checkbox" id="Enable">
+    </label>
+    <br><br>
+    <button type="submit">Update</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    const form = document.getElementById('adminForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const isNeedUpdateAvailableAlret = document.getElementById('isNeedUpdateAvailableAlret').checked;
+      const Enable = document.getElementById('Enable').checked;
+
+      const data = {
+        success: true,
+        code: 200,
+        message: "Success",
+        data: {
+          isNeedUpdateAvailableAlret,
+          Enable
+        }
+      };
+
+      fetch('appHelper.json', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(response => {
+        if (response.ok) {
+          status.textContent = "Settings updated successfully!";
+        } else {
+          status.textContent = "Failed to update settings.";
+        }
+      }).catch(error => {
+        status.textContent = "Error: " + error;
+      });
+    });
+  </script>
+</body>
+</html>
