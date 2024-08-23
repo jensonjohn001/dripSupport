@@ -15,6 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Commit and push changes to appHelper.json
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs/appHelper.json
+          git commit -m "Update appHelper.json"
+          git push
+        continue-on-error: true  # Continue even if there's no change to commit
+
       - name: Set up GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
