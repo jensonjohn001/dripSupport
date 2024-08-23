@@ -4,6 +4,6 @@
   "message": "Success",
   "data": {
     "isNeedUpdateAvailableAlret": true,
-    "Enable": false
+    "isForceNeeded": false
   }
 }
