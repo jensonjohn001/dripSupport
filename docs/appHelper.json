@@ -4,7 +4,6 @@
   "message": "Success",
   "data": {
     "isNeedUpdateAvailableAlret": true,
-    "isNeedForceUpdate": false,
-    "minVersion": "4.15"
+    "Enable": false
   }
 }
