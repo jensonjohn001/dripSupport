@@ -25,6 +25,21 @@
   <p id="status"></p>
 
   <script>
+    // Fetch settings.json and load checkbox values on page load
+    window.onload = function() {
+      fetch('settings.json')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('isNeedUpdateAvailableAlret').checked = data.data.isNeedUpdateAvailableAlret;
+          document.getElementById('Enable').checked = data.data.Enable;
+        })
+        .catch(error => {
+          console.error('Error loading settings:', error);
+          document.getElementById('status').textContent = 'Error loading settings.';
+        });
+    };
+
+    // Handle form submission to update settings.json
     const form = document.getElementById('adminForm');
     const status = document.getElementById('status');
 
@@ -44,7 +59,7 @@
         }
       };
 
-      fetch('appHelper.json', {
+      fetch('settings.json', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
