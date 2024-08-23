@@ -31,7 +31,7 @@
         .then(response => response.json())
         .then(data => {
           document.getElementById('isNeedUpdateAvailableAlret').checked = data.data.isNeedUpdateAvailableAlret;
-          document.getElementById('isForceNeeded').checked = data.data.Enable;
+          document.getElementById('isForceNeeded').checked = data.data.isForceNeeded;
         })
         .catch(error => {
           console.error('Error loading settings:', error);
