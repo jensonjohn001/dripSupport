@@ -5,6 +5,6 @@
   "data": {
     "isForceUpdateNeeded": true,
     "type": "force",
-    "isPlanExpiryCheckNeeded": true
+    "isPlanExpiryCheckNeeded": true,
   }
 }
