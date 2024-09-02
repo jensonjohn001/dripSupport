@@ -4,6 +4,7 @@
   "message": "Success",
   "data": {
     "isForceUpdateNeeded": true,
-    "type": "force"
+    "type": "force",
+    "isPlanExpiryCheckNeeded": true
   }
 }
