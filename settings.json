@@ -4,6 +4,6 @@
   "message": "Success",
   "data": {
     "isForceUpdateNeeded": true,
-    "type": "option"
+    "type": "skip"
   }
 }
