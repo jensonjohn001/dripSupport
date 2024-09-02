@@ -3,7 +3,7 @@
   "code": 200,
   "message": "Success",
   "data": {
-    "isForceUpdateNeeded": true,
+    "isForceUpdateNeeded": false,
     "type": "force"
   }
 }
