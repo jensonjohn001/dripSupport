@@ -3,7 +3,7 @@
   "code": 200,
   "message": "Success",
   "data": {
-    "isNeedUpdateAvailableAlret": true,
-    "isForceNeeded": true
+    "isForceUpdateNeeded": true,
+    "type": "force"
   }
 }
